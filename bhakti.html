@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhakti Songs</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li class="brand"><img src="logo1.JPG" alt="T-music"> Tmusic</li>
+        </ul>
+    </nav>
+
+    <h1>Bhakti Songs</h1>
+
+    <div class="category">
+        <div class="songItem">
+            <span class="songName">Har Har Sambhu</span>
+            <button id="0" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Mera Bhola Hai Bhandari</span>
+            <button id="1" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Raghupathi Raghav RajaRam</span>
+            <button id="2" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Laagi Lagan Shankara</span>
+            <button id="3" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Namo Namo</span>
+            <button id="4" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Woh kisna hai</span>
+            <button id="5" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">O Paalanhare</span>
+            <button id="6" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Radha Rani</span>
+            <button id="7" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Thumkeshwari</span>
+            <button id="8" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+    </div>
+
+    <div class="menu">
+        <a href="index4.html">Back to Home</a>
+    </div>
+
+    <script>
+        // Initialize bhakti songs
+        let bhaktiSongs = [
+            {songName: "Har Har Sambhu", filePath: "music/song31.mp3", audio: new Audio('music/song31.mp3')},
+            {songName: "Mera Bhola Hai Bhandari", filePath: "music/song32.mp3", audio: new Audio('music/song32.mp3')},
+            {songName: "Raghupathi Raghav RajaRam", filePath: "music/song33.mp3", audio: new Audio('music/song33.mp3')},
+            {songName: "Laagi Lagan Shankara", filePath: "music/song34.mp3", audio: new Audio('music/song34.mp3')},
+            {songName: "Namo Namo", filePath: "music/song35.mp3", audio: new Audio('music/song35.mp3')},
+            {songName: "O Paalanhare", filePath: "music/song36.mp3", audio: new Audio('music/song36.mp3')},
+            {songName: "Radha Rani", filePath: "music/song37.mp3", audio: new Audio('music/song37.mp3')},
+            {songName: "Woh Kisna Hai", filePath: "music/song38.mp3", audio: new Audio('music/song38.mp3')},
+            {songName: "Thumkeshwari", filePath: "music/song39.mp3", audio: new Audio('music/song39.mp3')},
+
+        ];
+        
+        let currentlyPlayingIndex = -1; // Track currently playing song index
+
+        // Function to render bhakti songs and add play/pause functionality
+        function renderCategorySongs(songArray) {
+            let songItems = Array.from(document.getElementsByClassName('songItem'));
+
+            songItems.forEach((element, i) => {
+                if (songArray[i]) {
+                    element.getElementsByClassName("songName")[0].innerText = songArray[i].songName;
+                }
+            });
+
+            // Play/pause specific song
+            Array.from(document.getElementsByClassName('songItemPlay')).forEach((element, i) => {
+                element.addEventListener('click', (e) => {
+                    // Pause the currently playing song if it exists and is different from the clicked one
+                    if (currentlyPlayingIndex !== -1 && currentlyPlayingIndex !== i) {
+                        bhaktiSongs[currentlyPlayingIndex].audio.pause();
+                        document.getElementsByClassName('songItemPlay')[currentlyPlayingIndex].classList.remove('fa-pause-circle');
+                        document.getElementsByClassName('songItemPlay')[currentlyPlayingIndex].classList.add('fa-play-circle');
+                    }
+
+                    let song = songArray[i];
+                    if (song.audio.paused) {
+                        song.audio.play();
+                        e.target.classList.remove('fa-play-circle');
+                        e.target.classList.add('fa-pause-circle');
+                        currentlyPlayingIndex = i; // Update currently playing index
+                    } else {
+                        song.audio.pause();
+                        e.target.classList.remove('fa-pause-circle');
+                        e.target.classList.add('fa-play-circle');
+                        currentlyPlayingIndex = -1; // Reset when paused
+                    }
+                });
+            });
+
+            // Update progress bar and seek functionality
+            songArray.forEach((song, index) => {
+                let progressBar = document.getElementsByClassName('myProgressBar')[index];
+
+                // Update the progress bar as the song plays
+                song.audio.addEventListener('timeupdate', () => {
+                    const progress = (song.audio.currentTime / song.audio.duration) * 100;
+                    progressBar.value = progress;
+                });
+
+                // Seek functionality
+                progressBar.addEventListener('input', (e) => {
+                    const seekTime = (song.audio.duration * e.target.value) / 100;
+                    song.audio.currentTime = seekTime;
+                });
+            });
+        }
+
+        // Render bhakti songs
+        renderCategorySongs(bhaktiSongs);
+    </script>
+
+</body>
+</html>

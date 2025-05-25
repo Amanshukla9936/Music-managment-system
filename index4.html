@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>T-music - Home</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(rgba(40, 44, 52, 0.9), rgba(40, 44, 52, 0.9)), url('partyBackground.jpeg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav {
+            font-family: 'Ubuntu', sans-serif;
+        }
+        
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+            height: 65px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        nav ul li {
+            padding: 0 12px;
+        }
+        
+        .brand img {
+            width: 44px;
+            padding: 0 8px;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            font-weight: bolder;
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            margin-top: 100px;
+            font-size: 3.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        p {
+            font-size: 1.8em;
+            margin: 20px 0;
+            animation: slideIn 1s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .menu {
+            margin-top: 50px;
+        }
+
+        .login {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+        }
+
+        .login a,
+        .menu a {
+            text-decoration: none;
+            padding: 12px 20px;
+            margin: 5px;
+            background-color:#f45c2e;
+            color: white;
+            border-radius: 30px;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-size: 1.1em;
+        }
+
+        .login a:hover,
+        .menu a:hover {
+            background-color: #f3663b;
+            transform: translateY(-3px);
+        }
+
+        .menu a {
+            margin: 10px;
+            padding: 15px 25px;
+            border: 2px solid #f45c2e;
+            background-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .menu a:hover {
+            background-color: #f45c2e;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            p {
+                font-size: 1.2em;
+            }
+
+            .login a,
+            .menu a {
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li class="brand"><img src="logo1.JPG" alt="T-music"> Tmusic</li>
+        </ul>
+    </nav>
+
+    <h1>Welcome to T-music</h1>
+    <p>Select a category of songs:</p>
+
+    <div class="login">
+        <a href="loginPage.html">Login</a>
+        <a href="registration.html">New Registration</a>
+    </div>
+
+    <div class="menu">
+        <a href="romantic.html">Romantic Songs</a>
+        <a href="sad.html">Sad Songs</a>
+        <a href="bhakti.html">Bhakti Songs</a>
+        <a href="party.html">Party Songs</a>
+    </div>
+
+</body>
+</html>

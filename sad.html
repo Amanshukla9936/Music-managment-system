@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sad Songs</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li class="brand"><img src="logo1.JPG" alt="Tmusic"> Tmusic</li>
+        </ul>
+    </nav>
+
+    <h1>Sad Songs</h1>
+
+    <div class="category">
+        
+        <div class="songItem">
+            <span class="songName">Agar Tum Saath Ho</span>
+            <button id="0" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Phir Bhi Tumko Chaahunga</span>
+            <button id="1" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Roke Na Ruke Naina</span>
+            <button id="2" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Hamari Adhuri Kahani</span>
+            <button id="3" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Mann Bharryaa 2.0</span>
+            <button id="4" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Kahani suno 2.0</span>
+            <button id="5" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Duur Na Karin</span>
+            <button id="6" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Judaai</span>
+            <button id="7" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Pachtaoge</span>
+            <button id="8" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+        <div class="songItem">
+            <span class="songName">Tera Yaar Hoon Main</span>
+            <button id="9" class="songItemPlay fa fa-play-circle"></button>
+            <input type="range" class="myProgressBar" value="0" max="100">
+        </div>
+    </div>
+
+    <div class="menu">
+        <a href="index4.html">Back to Home</a>
+    </div>
+
+    <script>
+        // Initialize sad songs
+        let sadSongs = [
+            {songName: "Agar Tum Saath Ho", filePath: "music/song21.mp3", audio: new Audio('music/song21.mp3')},
+            {songName: "Phir Bhi Tumko Chaahunga", filePath: "music/song22.mp3", audio: new Audio('music/song22.mp3')},
+            {songName: "Roke Na Ruke Naina", filePath: "music/song23.mp3", audio: new Audio('music/song23.mp3')},
+            {songName: "Hamari Adhuri Kahani", filePath: "music/song24.mp3", audio: new Audio('music/song24.mp3')},
+            {songName: "Mann Bharryaa 2.0", filePath: "music/song25.mp3", audio: new Audio('music/song25.mp3')},
+            {songName: "Kahani suno 2.0", filePath: "music/song26.mp3", audio: new Audio('music/song26.mp3')},
+            {songName: "Duur Na Karin", filePath: "music/song27.mp3", audio: new Audio('music/song27.mp3')},
+            {songName: "Judaai", filePath: "music/song28.mp3", audio: new Audio('music/song28.mp3')},
+            {songName: "Pachtaoge", filePath: "music/song29.mp3", audio: new Audio('music/song29.mp3')},
+            {songName: "Tera Yaar Hoon Main", filePath: "music/song30.mp3", audio: new Audio('music/song30.mp3')},
+        ];
+       
+        let currentlyPlayingIndex = -1; // Keep track of currently playing song index
+
+        // Function to render sad songs and add play/pause functionality
+        function renderCategorySongs(songArray) {
+            let songItems = Array.from(document.getElementsByClassName('songItem'));
+
+            songItems.forEach((element, i) => {
+                if (songArray[i]) {
+                    element.getElementsByClassName("songName")[0].innerText = songArray[i].songName;
+                }
+            });
+
+            // Play/pause specific song
+            Array.from(document.getElementsByClassName('songItemPlay')).forEach((element, i) => {
+                element.addEventListener('click', (e) => {
+                    // Pause the currently playing song if it exists and is different from the clicked one
+                    if (currentlyPlayingIndex !== -1 && currentlyPlayingIndex !== i) {
+                        sadSongs[currentlyPlayingIndex].audio.pause();
+                        document.getElementsByClassName('songItemPlay')[currentlyPlayingIndex].classList.remove('fa-pause-circle');
+                        document.getElementsByClassName('songItemPlay')[currentlyPlayingIndex].classList.add('fa-play-circle');
+                    }
+
+                    let song = songArray[i];
+                    if (song.audio.paused) {
+                        song.audio.play();
+                        e.target.classList.remove('fa-play-circle');
+                        e.target.classList.add('fa-pause-circle');
+                        currentlyPlayingIndex = i; // Update currently playing index
+                    } else {
+                        song.audio.pause();
+                        e.target.classList.remove('fa-pause-circle');
+                        e.target.classList.add('fa-play-circle');
+                        currentlyPlayingIndex = -1; // Reset when paused
+                    }
+                });
+            });
+
+            // Update progress bar and seek functionality
+            songArray.forEach((song, index) => {
+                let progressBar = document.getElementsByClassName('myProgressBar')[index];
+
+                // Update the progress bar as the song plays
+                song.audio.addEventListener('timeupdate', () => {
+                    const progress = (song.audio.currentTime / song.audio.duration) * 100;
+                    progressBar.value = progress;
+                });
+
+                // Seek functionality
+                progressBar.addEventListener('input', (e) => {
+                    const seekTime = (song.audio.duration * e.target.value) / 100;
+                    song.audio.currentTime = seekTime;
+                });
+            });
+        }
+
+        // Render sad songs
+        renderCategorySongs(sadSongs);
+    </script>
+
+</body>
+</html>
